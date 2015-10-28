@@ -55,11 +55,12 @@ def run
         if File.directory? entry
             `find #{entry} -name "*.cc"`.split(/\n/).each { |file|
                 Process.fork { test(file) }
+                count += 1; Process.waitall if count % @options.jobs == 0
             }
         else
             Process.fork { test(entry) }
+            count += 1; Process.waitall if count % @options.jobs == 0
         end
-        count += 1; Process.waitall if count % @options.jobs == 0
     }
     Process.waitall
 end

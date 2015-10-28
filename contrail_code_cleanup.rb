@@ -52,7 +52,7 @@ def run
     Dir.chdir @options.root_dir
     ARGV.each { |entry|
         count = 0
-        if Dir.directory? entry
+        if File.directory? entry
             `find #{entry} -name "*.cc"`.split(/\n/).each { |file|
                 Process.fork { test(file) }
             }
@@ -66,7 +66,7 @@ end
 
 def process_args
     @options = OpenStruct.new
-    @options.jobs = 4
+    @options.jobs = 1
     @options.delete_trailing_spaces = true
     @options.delete_unused_includes = true
     @options.root_dir = ENV['PWD']

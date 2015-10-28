@@ -76,8 +76,7 @@ def process_args
              "Delete trailing spaces") { |s|
                  @options.delete_trailing_spaces = s
         }
-        o.on("-I", "--[no-]additional-include-paths",
-             "[#{@options.additional_include_paths}]",
+        o.on("-I", "--additional-include-paths [#{@options.additional_include_paths}]",
              "Additional include paths for compilation") { |p|
                  @options.additional_include_paths = p
         }

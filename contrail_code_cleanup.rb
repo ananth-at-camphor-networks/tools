@@ -23,13 +23,13 @@ def compile (file)
 end
 
 def test (file)
+    puts "Processing file #{file}"
     `\grep "^#include " #{file}`.split(/\n/).each { |ifile|
         ifile.chomp!
         next if ifile !~ /^#include\s+(.*)\.h/
         incfile = $1
         incfile.gsub!(/\"/, "")
         next if incfile.end_with? File.basename(file, File.extname(file))
-        puts "Processing file #{file}"
         `cp #{file} #{file}.bak`
         File.open("#{file}.bak", "r") { |fp|
             File.open(file, "w") { |wfp|

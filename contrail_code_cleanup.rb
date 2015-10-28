@@ -91,7 +91,7 @@ def process_args
              "Delete unused include files") { |i|
                  @options.delete_unused_includes = i
         }
-        o.on("-r", "--root-dir", "[#{@options.root_dir}]",
+        o.on("-r", "--root-dir [#{@options.root_dir}]",
              "Contrail sandbox root directory") { |d| @options.root_dir = d }
         o.on("-d", "--[no-]-debug", "[#{@options.debug}]",
              "Show debug information") { |d| @options.debug = d }

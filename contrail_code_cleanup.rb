@@ -33,8 +33,8 @@ def test (file)
         File.open("#{file}.bak", "r") { |fp|
             File.open(file, "w") { |wfp|
                 fp.readlines.each { |line|
-                    line.gsub!(/\s+$/, "") if @options.delete_spaces
-                    if !@options.delete_includes or line !~ /^#{ifile}/
+                    line.gsub!(/\s+$/, "") if @options.delete_trailing_spaces
+                    if !@options.delete_unused_includes or line !~ /^#{ifile}/
                         wfp.puts line
                     end
                 }
@@ -60,8 +60,8 @@ end
 def process_args
     @options = OpenStruct.new
     @options.jobs = 4
-    @options.delete_spaces = true
-    @options.delete_includes = true
+    @options.delete_trailing_spaces = true
+    @options.delete_unused_includes = true
     @options.root_dir = ENV['PWD']
     @options.debug = false
 
@@ -70,10 +70,16 @@ def process_args
              "Maximum number of parallel jobs to run") { |j|
             @options.jobs = j.to_i
         }
-        o.on("-s", "--[no-]delete-spaces", "[#{@options.delete_spaces}]",
-             "Delete trailing spaces") { |s| @options.delete_spaces = s }
-        o.on("-i", "--[no-]delete-includes", "[#{@options.delete_includes}]",
-             "Delete unused include files") { |i| @options.delete_includes = i }
+        o.on("-s", "--[no-]delete-trailing-spaces",
+             "[#{@options.delete_trailing_spaces}]",
+             "Delete trailing spaces") {
+                 |s| @options.delete_trailing_spaces = s
+        }
+        o.on("-i", "--[no-]delete-unused-includes",
+             "[#{@options.delete_unused_includes}]",
+             "Delete unused include files") {
+                 |i| @options.delete_unused_includes = i
+        }
         o.on("-r", "--root-dir", "[#{@options.root_dir}]",
              "Contrail sandbox root directory") { |d| @options.root_dir = d }
         o.on("-d", "--[no-]-debug", "[#{@options.debug}]",

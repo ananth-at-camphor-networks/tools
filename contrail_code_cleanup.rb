@@ -16,7 +16,8 @@ def compile (file)
     fl = file.gsub("\.cc", "")
     cmd = "g++ -o #{fl}.o -c -g -O0 -DDEBUG -Wfatal-errors -Wall -Werror -Wsign-compare -Wno-unused-local-typedefs -DLINUX #{@options.additional_include_paths} -Icontroller/lib -Ibuild/include/thrift -Icontroller/src -Ibuild/include -Ibuild/debug -Ibuild/debug/analytics -Ibuild/debug/base -Ibuild/debug/bfd -Ibuild/debug/bgp -Ibuild/debug/cdb -Ibuild/debug/config -Ibuild/debug/contrail-snmp-collector -Ibuild/debug/contrail-topology -Ibuild/debug/control-node -Ibuild/debug/db -Ibuild/debug/discovery -Ibuild/debug/dns -Ibuild/debug/gendb -Ibuild/debug/http -Ibuild/debug/ifmap -Ibuild/debug/io -Ibuild/debug/ksync -Ibuild/debug/net -Ibuild/debug/opserver -Ibuild/debug/query_engine -Ibuild/debug/route -Ibuild/debug/sandesh -Ibuild/debug/schema -Ibuild/debug/server-manager -Ibuild/debug/storage -Ibuild/debug/tools -Ibuild/debug/vnsw -Ibuild/debug/vrouter -Ibuild/debug/xml -Ibuild/debug/xmpp #{fl}.cc 2>&1 >/dev/null"
 
-#   cmd = "g++ -o #{fl}.o -c -g -O0 -DDEBUG -Wfatal-errors -Wall -Werror -Wsign-compare -Wno-unused-local-typedefs -DLINUX -Icontroller/src -Ibuild/include -Icontroller/lib -Ibuild/debug -Ibuild/debug/bgp -Icontroller/src/bgp -Ibuild/debug/io -Icontroller/src/io -Ibuild/debug/db -Icontroller/src/db #{fl}.cc 2>/dev/null" result = sh(cmd);
+#   cmd = "g++ -o #{fl}.o -c -g -O0 -DDEBUG -Wfatal-errors -Wall -Werror -Wsign-compare -Wno-unused-local-typedefs -DLINUX -Icontroller/src -Ibuild/include -Icontroller/lib -Ibuild/debug -Ibuild/debug/bgp -Icontroller/src/bgp -Ibuild/debug/io -Icontroller/src/io -Ibuild/debug/db -Icontroller/src/db #{fl}.cc 2>/dev/null"
+    result = sh(cmd)
     `rm -rf #{fl}.o 2>/dev/null`
     return result
 end

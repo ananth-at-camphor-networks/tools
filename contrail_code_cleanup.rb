@@ -67,6 +67,7 @@ def process_args
     @options.additional_include_paths = ""
 
     opt_parser = OptionParser.new { |o|
+        o.banner = "Usage: #{$0} [options] {target-directories-to-process}"
         o.on("-j", "--jobs [#{@options.jobs}]",
              "Maximum number of parallel jobs to run") { |j|
             @options.jobs = j.to_i
@@ -91,6 +92,10 @@ def process_args
              "Show debug information") { |d| @options.debug = d }
     }
     opt_parser.parse!(ARGV)
+    if ARGV.empty?
+        puts "Please provide at least one target directory to process"
+        exit
+    end
 end
 
 def main

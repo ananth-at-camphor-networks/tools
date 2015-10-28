@@ -7,7 +7,7 @@ require 'ostruct'
 
 def sh(cmd)
     puts cmd if @options.debug
-    o = `#{cmd}`
+    o = `#{cmd} 2>&1`
     puts o if @options.debug
     return $?.to_i == 0
 end

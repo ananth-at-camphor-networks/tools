@@ -37,6 +37,8 @@ def test (file)
                     line.gsub!(/\s+$/, "") if @options.delete_trailing_spaces
                     if !@options.delete_unused_includes or line !~ /^#{ifile}/
                         wfp.puts line
+                    else
+                        puts "Skip #{ifile}" if @options.debug
                     end
                 }
             }
